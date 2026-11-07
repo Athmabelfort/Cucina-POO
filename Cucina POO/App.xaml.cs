@@ -1,4 +1,5 @@
-﻿using System.Configuration;
+﻿using Cucina_POO.Model;
+using System.Configuration;
 using System.Data;
 using System.Windows;
 
