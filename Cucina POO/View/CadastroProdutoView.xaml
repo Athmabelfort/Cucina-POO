@@ -1,0 +1,86 @@
+<UserControl x:Class="Cucina_POO.View.CadastroProdutoView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             d:DesignHeight="700" d:DesignWidth="1000"
+             Background="White">
+
+    <UserControl.Resources>
+        <BooleanToVisibilityConverter x:Key="BoolParaVisivel"/>
+    </UserControl.Resources>
+
+    <ScrollViewer VerticalScrollBarVisibility="Auto">
+        <StackPanel Width="560" HorizontalAlignment="Center" Margin="0,40,0,30">
+
+            <!-- Título -->
+            <TextBlock Text="Cadastro de Produtos" Style="{StaticResource TituloTela}"
+                       HorizontalAlignment="Center"/>
+
+            <!-- Tipo -->
+            <StackPanel Orientation="Horizontal" Margin="0,32,0,0">
+                <TextBlock Text="Tipo" Style="{StaticResource Rotulo}" Width="90"/>
+                <RadioButton x:Name="RbPrato" GroupName="TipoProduto" Content="Prato"
+                             IsChecked="True" Margin="0,0,24,0" VerticalContentAlignment="Center"/>
+                <RadioButton x:Name="RbBebida" GroupName="TipoProduto" Content="Bebida"
+                             VerticalContentAlignment="Center"/>
+            </StackPanel>
+
+            <!-- Nome (e Tamanho, só para Bebida) -->
+            <Grid Margin="0,16,0,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="90"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <TextBlock Text="Nome" Style="{StaticResource Rotulo}"/>
+                <TextBox x:Name="TxtNome" Grid.Column="1" Style="{StaticResource CaixaTexto}"/>
+
+                <StackPanel Grid.Column="2" Orientation="Horizontal"
+                            Visibility="{Binding IsChecked, ElementName=RbBebida,
+                                         Converter={StaticResource BoolParaVisivel}}">
+                    <TextBlock Text="Tamanho" Style="{StaticResource Rotulo}" Margin="16,0,8,0"/>
+                    <TextBox x:Name="TxtTamanho" Style="{StaticResource CaixaTexto}" Width="80"/>
+                </StackPanel>
+            </Grid>
+
+            <!-- Preço -->
+            <Grid Margin="0,16,0,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="90"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Text="Preço" Style="{StaticResource Rotulo}"/>
+                <TextBox x:Name="TxtPreco" Grid.Column="1" Style="{StaticResource CaixaTexto}"/>
+            </Grid>
+
+            <!-- Descrição (só para Prato) -->
+            <Grid Margin="0,16,0,0"
+                  Visibility="{Binding IsChecked, ElementName=RbPrato,
+                               Converter={StaticResource BoolParaVisivel}}">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="90"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Text="Descrição" Style="{StaticResource Rotulo}"
+                           VerticalAlignment="Top" Margin="0,4,0,0"/>
+                <TextBox x:Name="TxtDescricao" Grid.Column="1"
+                         Style="{StaticResource CaixaTexto}"
+                         Height="140" Padding="6" VerticalContentAlignment="Top"
+                         TextWrapping="Wrap" AcceptsReturn="True"
+                         VerticalScrollBarVisibility="Auto"/>
+            </Grid>
+
+            <!-- Botões -->
+            <StackPanel Margin="0,32,0,0" HorizontalAlignment="Center">
+                <Button x:Name="BtnSalvar" Content="Cadastrar produto"
+                        Style="{StaticResource BotaoPrimario}" Width="260"/>
+                <Button x:Name="BtnCancelar" Content="Cancelar"
+                        Style="{StaticResource BotaoPrimario}" Width="260" Margin="0,8,0,0"/>
+            </StackPanel>
+
+        </StackPanel>
+    </ScrollViewer>
+</UserControl>

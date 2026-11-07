@@ -20,7 +20,8 @@ namespace Cucina_POO.View
         public MainWindow()
         {
             InitializeComponent();
-            AreaConteudo.Content = new NovoPedidoView();
+            // AreaConteudo.Content = new NovoPedidoView();
+            AreaConteudo.Content = new CadastroProdutoView();
         }
     }
 }
