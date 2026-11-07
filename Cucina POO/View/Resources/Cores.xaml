@@ -1,0 +1,14 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <Color x:Key="CorMenu">#111111</Color>
+    <Color x:Key="CorDourado">#C9A24D</Color>
+    <Color x:Key="CorBotao">#000000</Color>
+
+    <SolidColorBrush x:Key="PincelMenu" Color="{StaticResource CorMenu}"/>
+    <SolidColorBrush x:Key="PincelDourado" Color="{StaticResource CorDourado}"/>
+    <SolidColorBrush x:Key="PincelBotao" Color="{StaticResource CorBotao}"/>
+
+    <FontFamily x:Key="FontePadrao">Poppins, Segoe UI</FontFamily>
+
+</ResourceDictionary>

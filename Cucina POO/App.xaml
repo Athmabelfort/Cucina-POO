@@ -4,6 +4,11 @@
              xmlns:local="clr-namespace:Cucina_POO"
              StartupUri="/View/MainWindow.xaml">
     <Application.Resources>
-         
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/View/Resources/Cores.xaml"/>
+                <ResourceDictionary Source="/View/Resources/Estilos.xaml"/>
+        </ResourceDictionary.MergedDictionaries>
+    </ResourceDictionary>
     </Application.Resources>
 </Application>
