@@ -12,18 +12,30 @@ using System.Windows.Shapes;
 
 namespace Cucina_POO.View
 {
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
+    
     public partial class MainWindow : Window
     {
+        NovoPedidoView telaPedido = new NovoPedidoView();
+        CadastroProdutoView telaProduto = new CadastroProdutoView();
+        CadastroClienteWindow telaCliente = new CadastroClienteWindow();
+
         public MainWindow()
         {
             InitializeComponent();
-            // AreaConteudo.Content = new NovoPedidoView();
-            //AreaConteudo.Content = new CadastroProdutoView();
+        }
 
-            // essa é só o grid, os dados são falsos, não tem ligação com o banco de dados
+        private void BtnPedido_Checked(object sender, RoutedEventArgs e)
+        {
+            AreaConteudo.Content = telaPedido;
+        }
+
+        private void BtnProdutos_Checked(object sender, RoutedEventArgs e)
+        {
+            AreaConteudo.Content = telaProduto;
+        }
+
+        private void BtnStatus_Checked(object sender, RoutedEventArgs e)
+        {
             AreaConteudo.Content = new StatusPedidosView();
         }
     }

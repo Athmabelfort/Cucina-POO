@@ -32,17 +32,17 @@
                 </StackPanel>
 
                 <StackPanel HorizontalAlignment="Center">
-                    <RadioButton x:Name="BtnPedido" GroupName="Menu" IsChecked="True"
+                    <RadioButton x:Name="BtnPedido" GroupName="Menu" Checked="BtnPedido_Checked"
                                  Style="{StaticResource BotaoMenu}" ToolTip="Novo Pedido">
                         <Image Source="/Assets/novo-pedido.png" Width="28"/>
                     </RadioButton>
 
-                    <RadioButton x:Name="BtnProdutos" GroupName="Menu"
+                    <RadioButton x:Name="BtnProdutos" GroupName="Menu" Checked="BtnProdutos_Checked"
                                  Style="{StaticResource BotaoMenu}" ToolTip="Cadastro de Produtos">
                         <Image Source="/Assets/food-bar.png" Width="28"/>
                     </RadioButton>
 
-                    <RadioButton x:Name="BtnStatus" GroupName="Menu"
+                    <RadioButton x:Name="BtnStatus" GroupName="Menu" Checked="BtnStatus_Checked"
                                  Style="{StaticResource BotaoMenu}" ToolTip="Status dos Pedidos">
                         <Image Source="/Assets/status-pedido.png" Width="28"/>
                     </RadioButton>
