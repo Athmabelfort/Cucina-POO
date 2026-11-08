@@ -21,7 +21,10 @@ namespace Cucina_POO.View
         {
             InitializeComponent();
             // AreaConteudo.Content = new NovoPedidoView();
-            AreaConteudo.Content = new CadastroProdutoView();
+            //AreaConteudo.Content = new CadastroProdutoView();
+
+            // essa é só o grid, os dados são falsos, não tem ligação com o banco de dados
+            AreaConteudo.Content = new StatusPedidosView();
         }
     }
 }
