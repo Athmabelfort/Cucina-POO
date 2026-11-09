@@ -23,8 +23,8 @@ namespace Cucina_POO.Model
         //Propriedades de navegação
         public Restaurante Restaurante { get; set; }
 
-        // Depende de ItemDePedido ganhar IdProduto/Produto para ser habilitada.
-        // public ICollection<ItemDePedido> ItensDePedido { get; set; }
+        public ICollection<ItemDePedido> ItensDePedido { get; set; }
+            = new List<ItemDePedido>();
 
         public abstract string ObterDescricao();
 
