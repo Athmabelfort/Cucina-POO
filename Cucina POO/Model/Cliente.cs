@@ -12,12 +12,12 @@ namespace Cucina_POO.Model
         [Required]
         public string Nome { get; set; }
 
-        [Required]
-        public long IdEndereco { get; set; }
-
-        //Propriedades de navegação
+        // Propriedades de navegação
         public ICollection<Endereco> Endereco { get; set; }
-        public ICollection<Pedido> Pedidos { get; set; } 
+            = new List<Endereco>();
+
+        public ICollection<Pedido> Pedidos { get; set; }
+            = new List<Pedido>();
 
 
     }

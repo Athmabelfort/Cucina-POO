@@ -21,13 +21,14 @@ namespace Cucina_POO.Model
         [Required]
         public string CEP { get; set; }
 
-        public long? IdCliente { get; set; }
+        [Required]
+        public long IdCliente { get; set; }
+
         public long? IdRestaurante { get; set; }
 
-        //Propriedades de navegação
-
+        // Propriedades de navegação
         public Cliente Cliente { get; set; }
-        //public Restaurante Cliente { get; set; } Preciso ainda do Model do Restaurante para
-        //propriedade funcionar
+        public Restaurante Restaurante { get; set; }
+
     }
 }
