@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Text;
 
 namespace Cucina_POO.Model
 {
@@ -15,9 +13,14 @@ namespace Cucina_POO.Model
         public long IdPedido { get; set; }
 
         [Required]
-        public string Descricacao { get; set; }
+        [ForeignKey("Produto")]
+        public long IdProduto { get; set; }
 
-        //Propriedades de navegação
+        [Range(1, int.MaxValue)]
+        public int Quantidade { get; set; }
+
+        // Propriedades de navegação
         public Pedido Pedido { get; set; }
+        public Produto Produto { get; set; }
     }
 }

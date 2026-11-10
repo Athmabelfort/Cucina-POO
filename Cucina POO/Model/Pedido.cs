@@ -1,6 +1,7 @@
 ﻿using Cucina_POO.Repository;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Collections.Generic;
 
 namespace Cucina_POO.Model
 {
@@ -20,6 +21,7 @@ namespace Cucina_POO.Model
 
         //Propriedades de navegação
         public ICollection<ItemDePedido> ItemDePedido { get; set; }
+            = new List<ItemDePedido>();
         public Cliente Cliente { get; set; }
     }
 }

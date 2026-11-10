@@ -12,7 +12,7 @@ namespace Cucina_POO.Model
         [MaxLength(100)]
         public string Nome { get; set; }
 
-        [Required]
+        [Range(typeof(decimal), "0.01", "99999999.99")]
         [Column(TypeName = "decimal(10,2)")]
         public decimal Preco { get; set; }
 
@@ -23,8 +23,8 @@ namespace Cucina_POO.Model
         //Propriedades de navegação
         public Restaurante Restaurante { get; set; }
 
-        // Depende de ItemDePedido ganhar IdProduto/Produto para ser habilitada.
-        // public ICollection<ItemDePedido> ItensDePedido { get; set; }
+        public ICollection<ItemDePedido> ItensDePedido { get; set; }
+            = new List<ItemDePedido>();
 
         public abstract string ObterDescricao();
 
