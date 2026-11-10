@@ -15,8 +15,16 @@ namespace Cucina_POO.Data
         public DbSet<Endereco> Enderecos { get; set; }
         public DbSet<Restaurante> Restaurantes { get; set; }
         public DbSet<Produto> Produtos { get; set; }
+        public DbSet<Prato> Pratos { get; set; }
+        public DbSet<Bebida> Bebidas { get; set; }
         public DbSet<Pedido> Pedidos { get; set; }
         public DbSet<ItemDePedido> ItensDePedido { get; set; }
+
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            optionsBuilder.UseSqlServer(
+                "Server=localhost\\SQLEXPRESS;Database=CucinaDB;Trusted_Connection=True;TrustServerCertificate=True;");
+        }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
