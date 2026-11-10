@@ -16,11 +16,8 @@ namespace Cucina_POO.Model
         [ForeignKey("Produto")]
         public long IdProduto { get; set; }
 
-        [Required]
+        [Range(1, int.MaxValue)]
         public int Quantidade { get; set; }
-
-        [Required]
-        public string Descricao { get; set; }
 
         // Propriedades de navegação
         public Pedido Pedido { get; set; }

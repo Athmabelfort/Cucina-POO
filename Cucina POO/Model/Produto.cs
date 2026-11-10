@@ -12,7 +12,7 @@ namespace Cucina_POO.Model
         [MaxLength(100)]
         public string Nome { get; set; }
 
-        [Required]
+        [Range(typeof(decimal), "0.01", "99999999.99")]
         [Column(TypeName = "decimal(10,2)")]
         public decimal Preco { get; set; }
 
