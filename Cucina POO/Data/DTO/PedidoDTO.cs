@@ -20,9 +20,15 @@ namespace Cucina_POO.Data.DTO
         public long IdCliente { get; set; }
 
         [Required]
+        public string ClienteNome { get; set; }
+
+        [Required]
         public EnumStatusPedido Status { get; set; }
 
         [Required]
         public string StatusDescricao { get; set; }
+
+        [Required]
+        public List<ItemDePedidoDTO> ItensDePedido { get; set; } = new List<ItemDePedidoDTO>();
     }
 }

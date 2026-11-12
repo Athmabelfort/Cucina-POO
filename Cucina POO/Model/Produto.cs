@@ -25,17 +25,5 @@ namespace Cucina_POO.Model
 
         public ICollection<ItemDePedido> ItensDePedido { get; set; }
             = new List<ItemDePedido>();
-
-        public abstract string ObterDescricao();
-
-        public virtual decimal CalcularPrecoFinal()
-        {
-            return Preco;
-        }
-
-        public override string ToString()
-        {
-            return $"{Nome} - R$ {CalcularPrecoFinal():F2}";
-        }
     }
 }

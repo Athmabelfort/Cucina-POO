@@ -1,4 +1,4 @@
-using Cucina_POO.Model;
+using Cucina_POO.Model.Interface;
 using System.ComponentModel.DataAnnotations;
 
 namespace Cucina_POO.Data.DTO
