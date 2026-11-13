@@ -21,9 +21,6 @@ namespace Cucina_POO.Model
         [Required]
         public string CEP { get; set; }
 
-        [Required]
-        public long IdCliente { get; set; }
-
         public long? IdRestaurante { get; set; }
 
         // Propriedades de navegação

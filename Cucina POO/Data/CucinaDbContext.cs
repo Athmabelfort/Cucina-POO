@@ -30,11 +30,11 @@ namespace Cucina_POO.Data
         {
             base.OnModelCreating(modelBuilder);
 
-            // Cliente 1:N Endereco
+            // Cliente 1:1 Endereco (Onde Cliente guarda o IdEndereco)
             modelBuilder.Entity<Cliente>()
-                .HasMany(c => c.Endereco)
+                .HasOne(c => c.Endereco)
                 .WithOne(e => e.Cliente)
-                .HasForeignKey(e => e.IdCliente)
+                .HasForeignKey<Cliente>(c => c.IdEndereco)
                 .IsRequired()
                 .OnDelete(DeleteBehavior.Restrict);
 

@@ -20,8 +20,7 @@ namespace Cucina_POO.Data.DTO
         [Required]
         public string CEP { get; set; }
 
-        [Required]
-        public long IdCliente { get; set; }
+        public string Complemento { get; set; }
 
         public long? IdRestaurante { get; set; }
     }
