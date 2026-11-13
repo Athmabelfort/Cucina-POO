@@ -20,41 +20,56 @@
 
             <Grid Margin="0,20,0,0">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="90"/>
+                    <ColumnDefinition Width="100"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
+
                 <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
 
-                <TextBlock Grid.Row="0" Text="Nome" Style="{StaticResource Rotulo}" FontSize="12"/>
+                <TextBlock Grid.Row="0" Text="Nome"
+                           Style="{StaticResource Rotulo}" FontSize="12"/>
                 <TextBox x:Name="TxtNome" Grid.Row="0" Grid.Column="1"
                          Style="{StaticResource CaixaTexto}"/>
 
-                <TextBlock Grid.Row="1" Text="Endereço" Style="{StaticResource Rotulo}" FontSize="12"/>
-                <TextBox x:Name="TxtEndereco" Grid.Row="1" Grid.Column="1"
+                <TextBlock Grid.Row="1" Text="Logradouro"
+                           Style="{StaticResource Rotulo}" FontSize="12"
+                           Margin="0,12,0,0"/>
+                <TextBox x:Name="TxtLogradouro" Grid.Row="1" Grid.Column="1"
                          Style="{StaticResource CaixaTexto}" Margin="0,12,0,0"/>
 
-                <TextBlock Grid.Row="2" Text="CPF" Style="{StaticResource Rotulo}" FontSize="12"
+                <TextBlock Grid.Row="2" Text="Número"
+                           Style="{StaticResource Rotulo}" FontSize="12"
                            Margin="0,12,0,0"/>
-                <TextBox x:Name="TxtCpf" Grid.Row="2" Grid.Column="1"
+                <TextBox x:Name="TxtNumero" Grid.Row="2" Grid.Column="1"
                          Style="{StaticResource CaixaTexto}" Margin="0,12,0,0"/>
 
-                <TextBlock Grid.Row="3" Text="Telefone" Style="{StaticResource Rotulo}" FontSize="12"
+                <TextBlock Grid.Row="3" Text="Complemento"
+                           Style="{StaticResource Rotulo}" FontSize="12"
                            Margin="0,12,0,0"/>
-                <TextBox x:Name="TxtTelefone" Grid.Row="3" Grid.Column="1"
+                <TextBox x:Name="TxtComplemento" Grid.Row="3" Grid.Column="1"
+                         Style="{StaticResource CaixaTexto}" Margin="0,12,0,0"/>
+
+                <TextBlock Grid.Row="4" Text="CEP"
+                           Style="{StaticResource Rotulo}" FontSize="12"
+                           Margin="0,12,0,0"/>
+                <TextBox x:Name="TxtCEP" Grid.Row="4" Grid.Column="1"
                          Style="{StaticResource CaixaTexto}" Margin="0,12,0,0"/>
             </Grid>
 
-            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,24,0,0">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right"
+                        Margin="0,24,0,0">
                 <Button Content="Cancelar" IsCancel="True"
-                        Style="{StaticResource BotaoPrimario}" Width="100" Margin="0,0,8,0"/>
-                <Button x:Name="BtnCadastrar" Content="Cadastrar" IsDefault="True"
                         Style="{StaticResource BotaoPrimario}" Width="100"
-                        Click="BtnCadastrar_Click"/>
+                        Margin="0,0,8,0"/>
+                <Button x:Name="BtnCadastrar" Content="Cadastrar"
+                        IsDefault="True" Style="{StaticResource BotaoPrimario}"
+                        Width="100" Click="BtnCadastrar_Click"/>
             </StackPanel>
         </StackPanel>
     </Border>

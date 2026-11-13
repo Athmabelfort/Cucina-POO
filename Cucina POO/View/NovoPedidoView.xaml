@@ -26,8 +26,17 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
             <TextBlock Text="Cliente" Style="{StaticResource Rotulo}"/>
-            <ComboBox x:Name="CmbCliente" Grid.Column="1" Height="28"
-                      IsEditable="True" FontSize="12" VerticalContentAlignment="Center"/>
+
+            <ComboBox x:Name="CmbCliente"
+              Grid.Column="1"
+              Height="28"
+              IsEditable="True"
+              IsTextSearchEnabled="True"
+              StaysOpenOnEdit="True"
+              TextSearch.TextPath="Nome"
+              FontSize="12"
+              VerticalContentAlignment="Center"/>
+
         </Grid>
 
         <!-- Produto -->
@@ -37,8 +46,15 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
             <TextBlock Text="Produto" Style="{StaticResource Rotulo}"/>
-            <ComboBox x:Name="CmbProduto" Grid.Column="1" Height="28"
-                      FontSize="12" VerticalContentAlignment="Center"/>
+            <ComboBox x:Name="CmbProduto"
+              Grid.Column="1"
+              Height="28"
+              IsEditable="True"
+              IsTextSearchEnabled="True"
+              StaysOpenOnEdit="True"
+              TextSearch.TextPath="Nome"
+              FontSize="12"
+              VerticalContentAlignment="Center"/>
         </Grid>
 
         <!-- Lista de itens (esquerda) e quantidade/pagamento (direita) -->

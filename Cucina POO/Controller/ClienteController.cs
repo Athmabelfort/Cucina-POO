@@ -1,4 +1,5 @@
-﻿using Cucina_POO.Data;
+﻿
+using Cucina_POO.Data;
 using Cucina_POO.Data.DTO;
 using Cucina_POO.Model;
 using System;
@@ -21,10 +22,10 @@ namespace Cucina_POO.Controller
             if(dto != null)
             {
                 var endereco = new Endereco()
-                {
-                    Logradouro = enderecoDTO.Logradouro,
-                    Numero = enderecoDTO.Numero,
-                    Complemento = enderecoDTO.Complemento,
+            {
+                Logradouro = enderecoDTO.Logradouro,
+                Numero = enderecoDTO.Numero,
+                Complemento = enderecoDTO.Complemento,
                     CEP = enderecoDTO.CEP,
                     IdRestaurante = 1
                 };
@@ -36,9 +37,9 @@ namespace Cucina_POO.Controller
                 };
 
                 _context.Enderecos.Add(endereco);
-                _context.Clientes.Add(cliente);
-                _context.SaveChanges();
-            }
+            _context.Clientes.Add(cliente);
+            _context.SaveChanges();
+        }
             else
             {
                 throw new ArgumentNullException("Os dados do cliente e do endereço não podem ser nulos.");
