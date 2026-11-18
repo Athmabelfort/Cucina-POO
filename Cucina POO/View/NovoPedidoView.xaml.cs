@@ -1,7 +1,11 @@
 
+using Cucina_POO.Controller;
 using Cucina_POO.Data;
-using Cucina_POO.View;
+using Cucina_POO.Data.DTO;
+using Cucina_POO.Repository;
 using Microsoft.EntityFrameworkCore;
+using System.Collections.ObjectModel;
+using System.Globalization;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -10,38 +14,30 @@ namespace Cucina_POO.View
 {
     public partial class NovoPedidoView : UserControl
     {
+        private readonly ObservableCollection<ItemPedidoView> _itens = new();
+
         public NovoPedidoView()
         {
             InitializeComponent();
 
-            CarregarProdutos();
-            CarregarClientes();
+            ListaItens.ItemsSource = _itens;
+            BtnAdicionar.Click += BtnAdicionar_Click;
+            BtnRealizar.Click += BtnRealizar_Click;
+            BtnCancelar.Click += BtnCancelar_Click;
 
             CmbCliente.PreviewKeyDown += CmbCliente_PreviewKeyDown;
+            CarregarDados();
         }
 
-        private void CarregarProdutos()
+        private void CarregarDados()
         {
-            using var context = new CucinaDbContext(
-                new DbContextOptions<CucinaDbContext>());
-
-            var produtos = context.Produtos
-                .OrderBy(p => p.Nome)
-                .ToList();
+            using var context = new CucinaDbContext(new DbContextOptions<CucinaDbContext>());
+            var produtos = new ProdutosController(context).RecuperarProdutos();
+            var clientes = new ClienteController(context).RecuperarClientes();
 
             CmbProduto.ItemsSource = produtos;
             CmbProduto.DisplayMemberPath = "Nome";
             CmbProduto.SelectedValuePath = "Id";
-        }
-
-        private void CarregarClientes()
-        {
-            using var context = new CucinaDbContext(
-                new DbContextOptions<CucinaDbContext>());
-
-            var clientes = context.Clientes
-                .OrderBy(c => c.Nome)
-                .ToList();
 
             CmbCliente.ItemsSource = clientes;
             CmbCliente.DisplayMemberPath = "Nome";
@@ -86,18 +82,106 @@ namespace Cucina_POO.View
 
             if (janela.ShowDialog() == true)
             {
-                CarregarClientes();
+                using var contextoClientes = new CucinaDbContext(new DbContextOptions<CucinaDbContext>());
+                CmbCliente.ItemsSource = new ClienteController(contextoClientes).RecuperarClientes();
 
-                using var novoContext = new CucinaDbContext(
-                    new DbContextOptions<CucinaDbContext>());
-
-                var novoCliente = novoContext.Clientes
+                var novoCliente = ((IEnumerable<ClienteDTO>)CmbCliente.ItemsSource)
                     .FirstOrDefault(c => c.Nome == nome);
 
                 if (novoCliente != null)
+                    CmbCliente.SelectedItem = novoCliente;
+            }
+        }
+
+        private void BtnAdicionar_Click(object sender, RoutedEventArgs e)
+        {
+            if (CmbProduto.SelectedItem is not ProdutoDTO produto ||
+                !int.TryParse(TxtQuantidade.Text, out int quantidade) || quantidade <= 0)
+            {
+                MessageBox.Show("Selecione um produto e informe uma quantidade válida.");
+                return;
+            }
+
+            var itemExistente = _itens.FirstOrDefault(i => i.Produto.Id == produto.Id);
+            if (itemExistente != null)
+                itemExistente.Quantidade += quantidade;
+            else
+                _itens.Add(new ItemPedidoView(produto, quantidade));
+
+            ListaItens.Items.Refresh();
+            AtualizarTotal();
+        }
+
+        private void BtnRealizar_Click(object sender, RoutedEventArgs e)
+        {
+            decimal total = _itens.Sum(i => i.Subtotal);
+
+            if (total <= 0)
+            {
+                MessageBox.Show("Adicione ao menos um produto antes de realizar o pagamento.");
+                return;
+            }
+
+            if (CmbCliente.SelectedItem is not ClienteDTO cliente)
+            {
+                MessageBox.Show("Selecione um cliente antes de realizar o pagamento.");
+                return;
+            }
+
+            try
+            {
+                using var context = new CucinaDbContext(new DbContextOptions<CucinaDbContext>());
+                var dto = new PedidoDTO
                 {
-                    CmbCliente.SelectedValue = novoCliente.Id;
-                }
+                    IdCliente = cliente.Id,
+                    Status = EnumStatusPedido.Pendente,
+                    Descricao = string.Join(", ", _itens.Select(i => $"{i.Produto.Nome} x{i.Quantidade}")),
+                    ItensDePedido = _itens.Select(i => new ItemDePedidoDTO
+                    {
+                        IdProduto = i.Produto.Id,
+                        Quantidade = i.Quantidade
+                    }).ToList()
+                };
+
+                new PedidoController(context).CriarPedido(dto);
+                MessageBox.Show("Pagamento processado e pedido gerado com sucesso!");
+                LimparPedido();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Erro ao realizar pedido: " + ex.Message);
+            }
+        }
+
+        private void BtnCancelar_Click(object sender, RoutedEventArgs e) => LimparPedido();
+
+        private void LimparPedido()
+        {
+            _itens.Clear();
+            CmbCliente.SelectedItem = null;
+            CmbProduto.SelectedItem = null;
+            TxtQuantidade.Text = "1";
+            AtualizarTotal();
+        }
+
+        private void AtualizarTotal()
+        {
+            decimal total = _itens.Sum(i => i.Subtotal);
+            TxtTotal.Text = total.ToString("C", CultureInfo.GetCultureInfo("pt-BR"));
+            BtnRealizar.IsEnabled = total > 0;
+        }
+
+        private sealed class ItemPedidoView
+        {
+            public ProdutoDTO Produto { get; }
+            public int Quantidade { get; set; }
+            public decimal Preco => Produto.CalcularPrecoFinal();
+            public decimal Subtotal => Preco * Quantidade;
+
+            public ItemPedidoView(ProdutoDTO produto, int quantidade)
+            {
+                Produto = produto;
+                Quantidade = quantidade;
             }
         }
     }

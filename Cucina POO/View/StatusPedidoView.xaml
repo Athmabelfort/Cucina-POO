@@ -12,15 +12,6 @@
     <UserControl.Resources>
 
         <!-- AQUI SERÃO TROCADOS PELOS PEDIDOS QUE ATHMA DISSE -->
-        <x:Array x:Key="PedidosExemplo" Type="sys:String">
-            <sys:String>053 - Fred</sys:String>
-            <sys:String>045 - VH</sys:String>
-            <sys:String>029 - Lyanco</sys:String>
-            <sys:String>017 - Renan</sys:String>
-            <sys:String>012 - Delfim</sys:String>
-            <sys:String>004 - Cuello</sys:String>
-        </x:Array>
-
         <!-- TEMPLATE DOS TEXTINHOS DE CADA ETAPA -->
         <Style x:Key="Etapa" TargetType="TextBlock">
             <Setter Property="FontSize" Value="10"/>
@@ -39,7 +30,7 @@
         <!-- Grade de cards -->
         <ScrollViewer VerticalScrollBarVisibility="Auto"
                       HorizontalScrollBarVisibility="Disabled">
-            <ItemsControl ItemsSource="{StaticResource PedidosExemplo}"
+            <ItemsControl x:Name="ListaPedidos"
                           HorizontalAlignment="Center">
 
                 <ItemsControl.ItemsPanel>
@@ -55,18 +46,18 @@
                                 Padding="12,10" Background="White"
                                 BorderBrush="Black" BorderThickness="1">
                             <DockPanel>
-                                <TextBlock DockPanel.Dock="Top" Text="{Binding}"
+                        <TextBlock DockPanel.Dock="Top" Text="{Binding Id, StringFormat=Pedido {0}}"
                                            FontSize="16" FontWeight="Bold" Margin="0,0,0,10"/>
 
-                                <TextBlock DockPanel.Dock="Bottom" Text="• Pedido Finalizado"
+                                 <TextBlock DockPanel.Dock="Bottom" Text="{Binding StatusDescricao, StringFormat=• {0}}"
                                            FontSize="10" FontWeight="Bold"
                                            HorizontalAlignment="Center"/>
 
                                 <StackPanel>
-                                    <TextBlock Style="{StaticResource Etapa}" Text="• Pedido Registrado"/>
-                                    <TextBlock Style="{StaticResource Etapa}" Text="• Enviado para cozinha"/>
-                                    <TextBlock Style="{StaticResource Etapa}" Text="• Em preparação"/>
-                                    <TextBlock Style="{StaticResource Etapa}" Text="• Pronto para retirada!"
+                                    <TextBlock Style="{StaticResource Etapa}" Text="{Binding ClienteNome, StringFormat=Cliente: {0}}"/>
+                                    <TextBlock Style="{StaticResource Etapa}" Text="{Binding Descricao}" TextWrapping="Wrap"/>
+                                    <TextBlock Style="{StaticResource Etapa}" Text="{Binding StatusDescricao}"/>
+                                    <TextBlock Style="{StaticResource Etapa}" Text="Pedido em andamento"
                                                FontWeight="Bold"/>
                                 </StackPanel>
                             </DockPanel>

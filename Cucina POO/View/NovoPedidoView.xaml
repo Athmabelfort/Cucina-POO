@@ -68,10 +68,10 @@
                       BorderBrush="Black" BorderThickness="1">
                 <ListView.View>
                     <GridView>
-                        <GridViewColumn Header="Produto" Width="300"/>
-                        <GridViewColumn Header="Qtd" Width="60"/>
-                        <GridViewColumn Header="Preço" Width="90"/>
-                        <GridViewColumn Header="Subtotal" Width="100"/>
+                        <GridViewColumn Header="Produto" Width="300" DisplayMemberBinding="{Binding Produto.Nome}"/>
+                        <GridViewColumn Header="Qtd" Width="60" DisplayMemberBinding="{Binding Quantidade}"/>
+                        <GridViewColumn Header="Preço" Width="90" DisplayMemberBinding="{Binding Preco, StringFormat=C}"/>
+                        <GridViewColumn Header="Subtotal" Width="100" DisplayMemberBinding="{Binding Subtotal, StringFormat=C}"/>
                     </GridView>
                 </ListView.View>
             </ListView>
@@ -110,9 +110,10 @@
             </StackPanel>
 
             <StackPanel Grid.Column="1">
-                <Button x:Name="BtnRealizar" Content="Realizar pedido"
+                <Button x:Name="BtnRealizar" Content="Pagamento"
                         Style="{StaticResource BotaoPrimario}"
-                        Width="180" HorizontalAlignment="Left"/>
+                        Width="180" HorizontalAlignment="Left"
+                        IsEnabled="False"/>
                 <Button x:Name="BtnCancelar" Content="Cancelar"
                         Style="{StaticResource BotaoPrimario}"
                         Width="180" HorizontalAlignment="Left" Margin="0,8,0,0"/>

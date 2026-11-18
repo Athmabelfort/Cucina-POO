@@ -48,9 +48,12 @@ namespace Cucina_POO.Controller
                 .Where(p => p.Status != Repository.EnumStatusPedido.Finalizado)
                 .Select(p => new PedidoDTO
                 {
+                   Id = p.Id,
                    Status = p.Status,
                    ClienteNome = p.Cliente.Nome,
                    IdCliente = p.Cliente.Id,
+                   StatusDescricao = p.Status.ObterDescricao(),
+                   Descricao = p.Descricao
                 })
                 .ToList();
 

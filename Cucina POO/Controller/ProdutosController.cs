@@ -3,6 +3,7 @@ using Cucina_POO.Data.DTO;
 using Cucina_POO.Model;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace Cucina_POO.Controller
@@ -35,6 +36,29 @@ namespace Cucina_POO.Controller
             {
                 throw new Exception();
             }  
+        }
+
+        public List<ProdutoDTO> RecuperarProdutos()
+        {
+            var pratos = _context.Pratos.Select(p => new PratoDTO
+            {
+                Id = p.Id,
+                Nome = p.Nome,
+                Descricao = p.Descricao,
+                Preco = p.Preco,
+                IdRestaurante = p.IdRestaurante
+            }).ToList();
+
+            var bebidas = _context.Bebidas.Select(p => new BebidaDTO
+            {
+                Id = p.Id,
+                Nome = p.Nome,
+                Preco = p.Preco,
+                Tamanho = p.Tamanho,
+                IdRestaurante = p.IdRestaurante
+            }). ToList();
+
+            return pratos.Cast<ProdutoDTO>().Concat(bebidas).ToList();
         }
     }
 }
