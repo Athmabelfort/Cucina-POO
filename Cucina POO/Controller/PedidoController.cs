@@ -1,10 +1,11 @@
-﻿using Cucina_POO.Data;
-using Cucina_POO.Data.DTO;
-using Cucina_POO.Model;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Windows.Navigation;
+using Cucina_POO.Data;
+using Cucina_POO.Data.DTO;
+using Cucina_POO.Model;
+using Microsoft.EntityFrameworkCore;
 
 namespace Cucina_POO.Controller
 {
@@ -44,17 +45,24 @@ namespace Cucina_POO.Controller
         // carregar todos os pedidos ainda não finalizados na tela de status pedido
         public List<PedidoDTO> RecuperarPedidosComStatus()
         {
-            var pedidos = _context.Pedidos
-                .Where(p => p.Status != Repository.EnumStatusPedido.Finalizado)
-                .Select(p => new PedidoDTO
-                {
-                   Id = p.Id,
-                   Status = p.Status,
-                   ClienteNome = p.Cliente.Nome,
-                   IdCliente = p.Cliente.Id,
-                   StatusDescricao = p.Status.ObterDescricao(),
-                   Descricao = p.Descricao
-                })
+            var pedidos = _context.Database
+                .SqlQuery<PedidoDTO>($"""
+            SELECT
+                p.Id,
+                p.Descricao,
+                p.IdCliente,
+                c.Nome AS ClienteNome,
+                p.Status,
+                CASE p.Status
+                    WHEN 0 THEN 'Pedido registrado'
+                    WHEN 1 THEN 'Em preparação na cozinha'
+                    WHEN 2 THEN 'Pronto para retirada'
+                    WHEN 3 THEN 'Finalizado'
+                END AS StatusDescricao
+            FROM Pedidos p
+            INNER JOIN Clientes c ON c.Id = p.IdCliente
+            WHERE p.Status <> 3
+            """)
                 .ToList();
 
             return pedidos;
