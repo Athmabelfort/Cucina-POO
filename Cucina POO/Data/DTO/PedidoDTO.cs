@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Cucina_POO.Data.DTO
 {
@@ -28,7 +29,7 @@ namespace Cucina_POO.Data.DTO
         [Required]
         public string StatusDescricao { get; set; }
 
-        [Required]
+        [NotMapped]
         public List<ItemDePedidoDTO> ItensDePedido { get; set; } = new List<ItemDePedidoDTO>();
     }
 }
