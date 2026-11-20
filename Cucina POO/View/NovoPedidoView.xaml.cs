@@ -25,7 +25,10 @@ namespace Cucina_POO.View
             BtnRealizar.Click += BtnRealizar_Click;
             BtnCancelar.Click += BtnCancelar_Click;
 
-            CmbCliente.PreviewKeyDown += CmbCliente_PreviewKeyDown;
+            CmbCliente.AddHandler(
+                Keyboard.PreviewKeyDownEvent,
+                new KeyEventHandler(CmbCliente_PreviewKeyDown),
+                true);
             CarregarDados();
         }
 
@@ -44,10 +47,13 @@ namespace Cucina_POO.View
             CmbCliente.SelectedValuePath = "Id";
         }
 
+
         private void CmbCliente_PreviewKeyDown(object sender, KeyEventArgs e)
         {
             if (e.Key != Key.Enter)
                 return;
+
+            e.Handled = true;
 
             string nome = CmbCliente.Text.Trim();
 
@@ -62,7 +68,12 @@ namespace Cucina_POO.View
 
             if (cliente != null)
             {
-                CmbCliente.SelectedValue = cliente.Id;
+                var clienteSelecionado = ((IEnumerable<ClienteDTO>)CmbCliente.ItemsSource)
+                    .FirstOrDefault(c => c.Id == cliente.Id);
+
+                if (clienteSelecionado != null)
+                    CmbCliente.SelectedItem = clienteSelecionado;
+
                 return;
             }
 
@@ -82,16 +93,22 @@ namespace Cucina_POO.View
 
             if (janela.ShowDialog() == true)
             {
-                using var contextoClientes = new CucinaDbContext(new DbContextOptions<CucinaDbContext>());
-                CmbCliente.ItemsSource = new ClienteController(contextoClientes).RecuperarClientes();
+                using var contextoClientes = new CucinaDbContext(
+                    new DbContextOptions<CucinaDbContext>());
 
-                var novoCliente = ((IEnumerable<ClienteDTO>)CmbCliente.ItemsSource)
-                    .FirstOrDefault(c => c.Nome == nome);
+                var clientes = new ClienteController(contextoClientes)
+                    .RecuperarClientes();
+
+                CmbCliente.ItemsSource = clientes;
+
+                var novoCliente = clientes
+                    .FirstOrDefault(c => c.Nome == janela.Nome);
 
                 if (novoCliente != null)
                     CmbCliente.SelectedItem = novoCliente;
             }
         }
+
 
         private void BtnAdicionar_Click(object sender, RoutedEventArgs e)
         {

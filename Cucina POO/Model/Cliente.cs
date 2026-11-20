@@ -12,8 +12,6 @@ namespace Cucina_POO.Model
         [Required]
         public string Nome { get; set; }
 
-        public long IdEndereco { get; set; }
-
         // Propriedades de navegação
         public Endereco Endereco { get; set; }
 
